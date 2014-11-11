@@ -10,7 +10,7 @@ class DefaultView extends View {
 		parent::__construct(ROOT . '/app/templates/master.php');
 		
 		// Make Sub Views
-		$this->primary_header = new View(ROOT . '/app/templates/primary_header.php');
+		$this->primaryHeader = new View(ROOT . '/app/templates/primary_header.php');
 		
 	}
 }

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui" />
-	<title>Page Title</title>
+    <title><?= 'Little Shop of Horrors | '.$title ?></title>
 	
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="/bower_components/ReptileForms/dist/reptileforms.min.css">
@@ -17,8 +17,8 @@
 <body>
 
 	<div class="page">
-		<?php echo $primary_header; ?>
-		<?php echo $main_content; ?>
+		<?= $primaryHeader ?>
+        <?= $mainContent ?>
 	</div>
 
 	<!-- Include Common Scripts -->

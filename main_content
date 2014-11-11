@@ -1,0 +1,126 @@
+gulpfile.js:2:25:var sass = require('gulp-sass');
+gulpfile.js:3:27:var prefix = require('gulp-autoprefixer');
+README.md:2:108:The bootcamp MVC framework is intended to give the students a simple MVC starting point to develop their in-class projects with. This guide will help you navigate your way through the framework and learn its technique.
+README.md:10:95:2. Even if it were a private repo, we don't want this file to end up on our production server - because we won't be using the same values for database credentials on our production server.
+README.md:14:121:The `db` object allows you to pass SQL statements and it returns a [mysqli result](http://php.net/manual/en/class.mysqli-result.php) object as seen below:
+README.md:65:20:$user_id = $results->insert_id;
+README.md:91:418:All of your Models, Views, and Controllers will be created in a the `/app` folder (in the respective models, views, and controllers folders). The framework has an Auto Loading feature which means you won't need to manually include classes that exist in the `/app` folder. But in order for it to work files must follow a specific naming convention. Each file should have one class and it's class name needs to be title-case as follows:
+README.md:93:53:// Notice the name of the class UserProduct in title-case
+README.md:98:70:The filename must match the class name expect it will need underscore-case such as `user_product.class.php`. Note the `.class.php` as it's extension.
+README.md:114:24:Controllers are the end-points for your application's HTTP requests. The Router will be the first point of entry for PHP, but it will soon hand the control over to the Controller depending on which URL was requested. Your controllers will be located under `/app/controllers`. This file shows how a basic controller works:
+README.md:128:20:extract($controller->view->vars);
+README.md:132:3:<!-- Page specific HTML goes here -->
+README.md:135:154:> Note that you will need an `init()` method in your Controller. This method will be called when the Controller Starts. This method should hold your page-specific code.
+README.md:137:234:Since controllers are included by the router and not the Auto Loader, the class name doesn't need to match the filename. So naming all your Controllers `class Controller` is okay. The purpose of the Controller is to organize the page-specific code including orchestrating Models and Views.
+README.md:143:193:If you wish to perform an AJAX request, you'll need your application to implement an `AjaxController` instead of an `AppController`. The AJAX controller works almost the same except the `$this->view` will refer to an associative array instead of a View Object. Adding variables to this array will turn into a JSON response when the script dies.
+README.md:155:98:Your Controller will have access to the Default View's hierarchy through a variable called `$this->view`. This variable is provided by `AppController`. 
+README.md:161:6:$this->view->foo = 'hello';
+README.md:164:6:$this->view->primary_header->bar = 'world';
+README.md:167:143:The View objects are smart and know when you're trying to access a View/Sub View vs when you're trying to make a variable. In this case `$this->view->foo` knows that there isn't a Sub View called `foo` and therefore you're making a new variable. In the case of `$this->view->primary_header->bar `, it knows that `primary_header` is a Sub View of the Default View and therefore allows you to pass new variables into that Sub View like `bar`. 
+README.md:169:13:Since `$this->view` corresponds directly to the Default View, and the Default View loads the `master.php` Template, passing variables to `$this->view` will make those variables available in the `master.php` Template.
+README.md:183:8:		$this->view->title = 'Hello World';
+README.md:189:20:extract($controller->view->vars);
+README.md:196:328:Since any output from the controller gets turned into the `$main_content` variable on the `master.php` Template, you can see here that our `$main_content` will consist of an `<h1>` tag. But also notice that in order to pass information from the `init()` method of our Controller down into the output, we also have to use `$this->view` as well.
+README.md:217:78:**Fourth,** the Controller's `init()` method will be called allowing the page-specific code to run inside the `init()`. This code will need to send any output to the Views by using the variable: `$this->view`.
+README.md:231:158:Models directly correspond to database tables and are required to be named similarly to their respective table. Database tables should be named in underscore-case. Models should be the same name but with title-case. For instance a table name of `user_product` should have a Model named `UserProduct`.
+README.md:255:11:echo $user->first_name; // Outputs "Lindsey"
+README.md:284:18:		return $results->insert_id;
+README.md:308:58:		db::update('user', $sql_values, "WHERE user_id = {$this->user_id}");
+README.md:309:24:		return new User($this->user_id);
+README.md:315:19:> Note that `$this->user_id` inside the object corresponds to the Model's ID (the one you provided when you started the object). Also notice how this method returns a new instance of the User object. This is because the old one is out-of-date now.
+README.md:321:14:$user = $user->update($_POST);
+README.md:323:300:> Remember how our `update()` method returned a new instance of the user?  This allows us to get the new `$user` object after calling the update method here. This pattern isn't required but might be useful since we are updating the user's data and we don't want the original `$user` object to be out-of-date.
+README.md:333:11:$ sudo apt-get install nodejs
+README.md:334:11:$ sudo apt-get install npm
+README.md:338:11:$ sudo ln -s /usr/bin/nodejs /usr/bin/node
+README.md:342:49:Install Homebrew (a similar tool to Ubuntu's apt-get)
+README.md:344:6:ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+README.md:352:47:Having NPM installed allows you to use already-made Node applications (called Modules) on your project. Your project will store the Node Modules in folder called `node_modeules`. The instructions for installing node modules are written in a file called `package.json`. To install the Node Modules issue the following bash command:
+README.md:367:20:$ sudo npm install -g bower
+README.md:377:126:The MVC framework showcases a registration form to create users. This registration form uses ReptileForms to implement Client-Side validation and basic form styles. Reptile Forms will be installed when you issue the `$ bower install` command. Using Reptile Forms requires configuration which is currently at `/js/main.js`. For more information, visit the [ReptileForms documentation](https://github.com/bradwestfall/ReptileForms)
+app/views/default_view.class.php:13:8:		$this->primaryHeader = new View(ROOT . '/app/templates/primary_header.php');
+app/core/db.class.php:29:9:		// Non-OO technique ensures compatability with some earlier versions of PHP5
+app/core/db.class.php:71:21:		$results = $mysqli->query($sql);
+app/core/db.class.php:82:12:			$results->affected_rows = $mysqli->affected_rows;
+app/core/db.class.php:83:12:			$results->insert_id = $mysqli->insert_id;
+app/core/db.class.php:90:32:			exit('SQL Error: ' . $mysqli->error . "<br><br>" . $sql);
+app/core/db.class.php:165:22:	 * Create UPDATE key-value pairs
+app/core/db.class.php:207:17:		return $mysqli->real_escape_string($value);
+app/core/db.class.php:213:29:	 * $value parameter is pass-by-reference so this function can 
+app/core/db.class.php:257:39:		while ($row = $mysqli_results_object->fetch_assoc()) {
+app/core/db.class.php:277:18:		$row = $results->fetch_assoc();
+app/core/file_utility.class.php:14:37:		return preg_replace_callback('/([A-Z])/', $func, $text);
+app/core/model.class.php:18:15:			$id = $this->insert($id);
+app/core/model.class.php:20:8:		$this->model = $this->get_model($id);
+app/core/model.class.php:24:15:		return $this->model[$var];
+app/core/model.class.php:28:23:		return print_r($this->model, TRUE);
+app/core/model.class.php:32:22:		return !empty($this->model);
+app/core/model.class.php:72:18:			FROM " . $this->get_table() . "
+app/core/model.class.php:73:19:			WHERE " . $this->get_table_id() . " = '{$id}'
+app/core/model.class.php:79:18:		return $results->num_rows ? $results->fetch_assoc() : NULL;
+app/core/class_loader.class.php:59:10:			die($e->getMessage());
+app/core/class_loader.class.php:66:13:			if ($path->isDir()) { $paths[] = $path->getPathName(); }  
+app/core/view.class.php:18:8:		$this->path = $path;
+app/core/view.class.php:26:9:			$this->{$name} = $value;
+app/core/view.class.php:27:9:			$this->vars[$name] = $this->{$name};
+app/core/view.class.php:29:9:			$this->vars[$name] = $value;
+app/core/view.class.php:34:18:		if (isset($this->{$name})) {
+app/core/view.class.php:35:16:			return $this->{$name};
+app/core/view.class.php:37:16:			return $this->vars[$name];
+app/core/view.class.php:47:25:		if (!file_exists($this->path)) {
+app/core/view.class.php:48:34:			trigger_error('Path [' . $this->path . '] doesn\'t exist', E_USER_ERROR);
+app/core/view.class.php:52:16:		extract($this->vars);
+app/core/view.class.php:56:16:		require($this->path);
+app/core/base_controller.class.php:24:8:		$this->set_view();
+app/core/base_controller.class.php:25:8:		$this->init();
+app/core/base_controller.class.php:32:13:		echo $this->view;
+app/core/base_controller.class.php:39:8:		$this->render();
+app/templates/master.php:2:16:<html class="no-js">
+app/templates/master.php:4:20:	<meta charset="utf-8">
+app/templates/master.php:5:12:	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+app/templates/master.php:6:45:	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui" />
+app/templates/master.php:9:4:	<!-- Main CSS -->
+app/templates/master.php:13:4:	<!-- Modernizr -->
+app/templates/master.php:24:4:	<!-- Include Common Scripts -->
+app/templates/master.php:28:4:	<!-- Get JS -->
+app/templates/master.php:31:4:	<!-- Main JS -->
+app/controllers/ajax_controller.class.php:13:8:		$this->view = [];
+app/controllers/ajax_controller.class.php:32:25:		echo json_encode($this->view);
+app/controllers/users/register/form.php:15:20:extract($controller->view->vars);
+app/controllers/users/register/form.php:19:21:<form class="reptile-form" action="register/process_form">
+app/controllers/users/register/process_form.php:16:8:		$this->view['response'] = 'User ' . $user->first_name . ' was successfully created';
+app/controllers/users/list.php:17:25:		while ($row = $results->fetch_assoc()) {
+app/controllers/users/list.php:18:9:			$this->view->users .= '<p>' . $row['first_name'] . '</p>';
+app/controllers/users/list.php:27:20:extract($controller->view->vars);
+app/controllers/home.php:7:8:		$this->view->primaryHeader->title = 'Little Shop of Horrors';
+app/controllers/home.php:8:8:		$this->view->master->title = 'Little Shop of Horrors';
+app/controllers/home.php:15:20:extract($controller->view->vars);
+app/controllers/app_controller.class.php:12:8:		$this->view = new DefaultView();
+app/controllers/app_controller.class.php:21:8:		$this->view->main_content = trim(ob_get_contents());
+app/models/user.class.php:33:18:		return $results->insert_id;
+app/models/user.class.php:57:58:		db::update('user', $sql_values, "WHERE user_id = {$this->user_id}");
+app/models/user.class.php:60:24:		return new User($this->user_id);
+database.sql:1:1:-- phpMyAdmin SQL Dump
+database.sql:2:1:-- version 4.0.10
+database.sql:3:1:-- http://www.phpmyadmin.net
+database.sql:4:1:--
+database.sql:5:1:-- Host: localhost
+database.sql:6:1:-- Generation Time: Oct 30, 2014 at 09:34 PM
+database.sql:7:1:-- Server version: 5.6.15
+database.sql:8:1:-- PHP Version: 5.4.30
+database.sql:19:1:--
+database.sql:20:1:-- Database: `bootcamp_mvc`
+database.sql:21:1:--
+database.sql:23:1:-- --------------------------------------------------------
+database.sql:25:1:--
+database.sql:26:1:-- Table structure for table `user`
+database.sql:27:1:--
+database.sql:39:1:--
+database.sql:40:1:-- Dumping data for table `user`
+database.sql:41:1:--
+database.sql:44:61:(1, 'Lindsey', 'Jones', 'lindsey@jones.com', 'abc123', '2014-10-08 00:00:00'),
+database.sql:45:55:(2, 'Dave', 'Smith', 'dave@smith.com', 'abc123', '2014-10-23 00:00:00');
+package.json:7:10:    "gulp-uglify": "~0.3.2",
+package.json:8:10:    "gulp-sass": "~0.7.2",
+package.json:9:10:    "gulp-autoprefixer": "0.0.8"
+package.json:15:18:  "license": "BSD-2-Clause",

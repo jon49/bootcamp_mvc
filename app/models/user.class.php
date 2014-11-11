@@ -28,7 +28,7 @@ class User extends Model {
 
 		// Insert
 		$results = db::insert('user', $sql_values);
-		
+
 		// Return the Insert ID
 		return $results->insert_id;
 

@@ -31,3 +31,32 @@
 	});
 
 })();
+
+// -- Views -- //
+
+(function () {
+
+    var createTable = function (headers, data) {
+        var $headerRow = headers.reduce(function($acc, header){
+            return $acc.append($('<th>').html(header.title));
+        }, $('<tr>')).appendTo($('<theader>'));
+
+        var $dataRows = data.reduce( function ($tbody, record) {
+            return $tbody.append(
+                headers.reduce(function ($row, header) {
+                return $row.append($('<td>').html(record[header.key]));
+            }, $('<tr>')));
+        }, $('<tbody>'));
+
+        var $table = $('<table>').append($headerRow).append($dataRows);
+        return $table;
+    };
+
+    $('.table-model').each( function () {
+        var tableData = JSON.parse($(this).html());
+        $(this).after(createTable(tableData.headers, tableData.data));
+    } );
+
+}());
+
+

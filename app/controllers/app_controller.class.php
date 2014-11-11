@@ -18,7 +18,7 @@ abstract class AppController extends BaseController {
 	protected function render() {
 
 		// Catch Output Buffer
-		$this->view->main_content = trim(ob_get_contents());
+		$this->view->mainContent = trim(ob_get_contents());
 		ob_end_clean();
 
 		// Render View
