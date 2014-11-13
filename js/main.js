@@ -22,7 +22,9 @@
 
 	// Do something when the AJAX request has returned in success
 	form.on('xhrSuccess', function(e, data) {
-		$('body').append('<p>Received Data: ' + JSON.stringify(data) + '</p>');
+        if (data.redirect) {
+            location.href = data.redirect;
+        }
 	});
 
 	// Do something when the AJAX request has returned with an error
@@ -39,7 +41,7 @@
     var createTable = function (headers, data) {
         var $headerRow = headers.reduce(function($acc, header){
             return $acc.append($('<th>').html(header.title));
-        }, $('<tr>')).appendTo($('<theader>'));
+        }, $('<tr>')).appendTo($('<thead>'));
 
         var $dataRows = data.reduce( function ($tbody, record) {
             return $tbody.append(
@@ -59,4 +61,26 @@
 
 }());
 
+var camelToUnderscore = function($value) {
+    return $value.replace(/([A-Z])/g, function($1){
+        return '_'+$1.toLowerCase();
+    });
+};
 
+// -- Actions -- //
+$('table').on('click', 'button', function(e){
+    if (!$(this).data('submit')) return;
+    var url, obj = {};
+    $.each($(this).data(), function(key, value){
+        if (key === 'submit') url = value;
+        else obj[camelToUnderscore(key)] = value;
+    });
+    $.post(url, obj)
+    .done(function(data){
+        var data_ = JSON.parse(data);
+        if (data_.redirect) location.href = data_.redirect;
+    })
+    .fail(function(data){
+        console.log('Update failed.');
+    });
+});

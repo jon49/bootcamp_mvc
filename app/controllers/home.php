@@ -14,9 +14,3 @@ $controller = new Controller();
 extract($controller->view->vars);
 
 ?>
-
-<ul>
-    <li><a href="/customers">Customers</a></li>
-    <li><a href="/items">Items</a></li>
-    <li><a href="/invoices">Invoices</a></li>
-</ul>
