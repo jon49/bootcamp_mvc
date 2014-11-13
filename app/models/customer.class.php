@@ -1,11 +1,7 @@
 <?php
 
 // Customer
-class Customer extends Model {
-
-    public function __construct($id = '') {
-        if ($id) parent::__construct($id);
-    }
+class Customer extends CustomModel {
 
     public function __get($prop) {
         if ($prop == 'name') {
