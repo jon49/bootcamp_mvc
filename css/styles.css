@@ -1,2 +1,89 @@
-div a {
-  color: green; }
+body > * {
+    margin: 0 auto;
+    width: 600px;
+}
+
+body {
+    color: #0060B6;
+}
+
+a {
+    color: #0060B6;
+}
+
+a:hover {
+    color: #FFF;
+    background-color: #00A0C6;
+}
+
+button, select {
+    background-color: #0060B6;
+    color: #FFF;
+    border: none;
+    padding: 3px;
+}
+
+button:hover, select:hover {
+    background-color: #00A0C6;
+    cursor: pointer;
+}
+
+input {
+    color: inherit;
+    border: 1px solid #0060B6;
+    padding: 2px;
+}
+
+nav {
+    text-align: center;
+}
+
+nav a {
+    text-decoration: none;
+    font-size: 20px;
+    padding: 10px;
+}
+
+nav a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+header h1 {
+    color: #0060B6;
+}
+
+table {
+    margin-bottom: 10px;
+}
+
+table th {
+    color: #0060B6;
+    text-align: left;
+}
+
+table td, table th {
+    padding: 2px 7px;
+}
+
+.field {
+    margin: 5px 0px;
+}
+
+label {
+    display: inline-block;
+    width: 100px;
+}
+
+.field-input {
+    display: inline-block;
+}
+
+input {
+    width: 150px;
+}
+
+select {
+    width: 150px;
+}
+

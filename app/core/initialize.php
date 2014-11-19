@@ -29,3 +29,5 @@ include(ROOT . '/app/app_settings.php');
 
 include(ROOT . '/app/core/class_loader.class.php');
 ClassLoader::setup();
+
+session_start();

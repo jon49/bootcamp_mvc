@@ -5,21 +5,6 @@
 
 	var form = new ReptileForm('form');
 
-	// Do something before validation starts
-	form.on('beforeValidation', function() {
-		$('body').append('<p>Before Validation</p>');
-	});
-
-	// Do something when errors are detected.
-	form.on('validationError', function(e, err) {
-		$('body').append('<p>Errors: ' + JSON.stringify(err) + '</p>');
-	});
-
-	// Do something after validation is successful, but before the form submits.
-	form.on('beforeSubmit', function() {
-		$('body').append('<p>Sending Values: ' + JSON.stringify(this.getValues()) + '</p>');
-	});
-
 	// Do something when the AJAX request has returned in success
 	form.on('xhrSuccess', function(e, data) {
         if (data.redirect) {
@@ -29,7 +14,7 @@
 
 	// Do something when the AJAX request has returned with an error
 	form.on('xhrError', function(e, xhr, settings, thrownError) {
-		$('body').append('<p>Submittion Error</p>');
+		$('body').append('<p>Submission Error</p>');
 	});
 
 })();
@@ -39,10 +24,12 @@
 (function () {
 
     var createTable = function (headers, data) {
+        // create header row
         var $headerRow = headers.reduce(function($acc, header){
             return $acc.append($('<th>').html(header.title));
         }, $('<tr>')).appendTo($('<thead>'));
 
+        // create data rows
         var $dataRows = data.reduce( function ($tbody, record) {
             return $tbody.append(
                 headers.reduce(function ($row, header) {
@@ -50,10 +37,13 @@
             }, $('<tr>')));
         }, $('<tbody>'));
 
+        // put the header and data rows together
         var $table = $('<table>').append($headerRow).append($dataRows);
         return $table;
     };
 
+    // if script tag(s) with class of `table-model` exists
+    // then create a table from the data after the script tags
     $('.table-model').each( function () {
         var tableData = JSON.parse($(this).html());
         $(this).after(createTable(tableData.headers, tableData.data));
@@ -71,10 +61,13 @@ var camelToUnderscore = function($value) {
 $('table').on('click', 'button', function(e){
     if (!$(this).data('submit')) return;
     var url, obj = {};
+
+    // make keys underscore values
     $.each($(this).data(), function(key, value){
         if (key === 'submit') url = value;
         else obj[camelToUnderscore(key)] = value;
     });
+    // post from button
     $.post(url, obj)
     .done(function(data){
         var data_ = JSON.parse(data);

@@ -25,12 +25,16 @@ Router::add('/item/remove',
 Router::add('/item/add',
     '/app/controllers/invoice/add_line_item.php');
 
-
-
 // Item for sales page
 Router::add('/products', '/app/controllers/product/list.php');
 // List of customer invoices
 Router::add('/invoices', '/app/controllers/invoice/list.php');
+
+// login
+Router::add('/login', '/app/controllers/login/login.php');
+Router::add('/process_login', '/app/controllers/login/process_login.php');
+Router::add('/account', '/app/controllers/login/account.php');
+Router::add('/logout', '/app/controllers/login/logout.php');
 
 // Issue Route
 Router::route();
